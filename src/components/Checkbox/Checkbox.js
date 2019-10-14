@@ -2,7 +2,7 @@ import React from 'react';
 
 const Checkbox = (props) => (
     <label>
-        <input type="checkbox" defaultChecked={props.checked} />
+        <input type="checkbox"/>
         {props.name}
     </label>
 )

@@ -47,7 +47,7 @@ export default class Passgen extends React.Component {
                 <Checkbox
                     id="1-1"
                     name="Numbers"
-                    checked={true} />
+                    checked={checked} />
                 <br/>
                 <Checkbox
                     id="1-2"
