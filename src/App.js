@@ -61,7 +61,10 @@ export default class Passgen extends React.Component {
                 <label>
                     Password:
                     {' '}
-                    <input type="text" value={password} readOnly />
+                    <input
+                        type="text"
+                        value={password}
+                        readOnly />
                 </label>
                 <br/>
                 <br/>
