@@ -29,25 +29,25 @@ export default class Passgen extends React.Component {
         })
     }
 
-    symbolsToggleHandler = () => {
+    toggleSymbolsHandler = () => {
         this.setState({
             withSymbols: !this.state.withSymbols
         })
     }
 
-    upperCaseToggleHandler = () => {
+    toggleUpperCaseHandler = () => {
         this.setState({
             withUpper: !this.state.withUpper
         })
     }
 
-    lowerCaseToggleHandler = () => {
+    toggleLowerCaseHandler = () => {
         this.setState({
             withLower: !this.state.withLower
         })
     }
 
-    rangeChangeHandler = (event) => {
+    changeRangeHandler = (event) => {
         this.setState({
             length: event.target.value
         })
@@ -61,7 +61,7 @@ export default class Passgen extends React.Component {
                 <label>
                     Password:
                     {' '}
-                    <input type="text" defaultValue={password} />
+                    <input type="text" value={password} readOnly />
                 </label>
                 <br/>
                 <br/>
@@ -71,8 +71,9 @@ export default class Passgen extends React.Component {
                     <input
                         type="range"
                         min="6" max="14"
-                        defaultValue={length}
-                        onChange={this.rangeChangeHandler} />
+                        value={length}
+                        onChange={this.changeRangeHandler}
+                        readOnly />
                     {' '}
                     <span>{length}</span>
                 </label>
@@ -81,28 +82,28 @@ export default class Passgen extends React.Component {
                 <Checkbox
                     id="1-1"
                     title="Numbers"
-                    defaultChecked={true} />
+                    checked={true}
+                    readOnly />
                 <br/>
                 <Checkbox
                     id="1-2"
                     title="Symbols"
-                    defaultChecked={withSymbols}
-                    onChange={this.symbolsToggleHandler} />
+                    checked={withSymbols}
+                    onChange={this.toggleSymbolsHandler} />
                 <br/>
                 <Checkbox
                     id="1-3"
                     title="To Uppercase"
-                    defaultChecked={withUpper}
-                    onChange={this.upperCaseToggleHandler} />
+                    checked={withUpper}
+                    onChange={this.toggleUpperCaseHandler} />
                 <br/>
                 <Checkbox
                     id="1-4"
                     title="To Lowercase"
-                    defaultChecked={withLower}
-                    onChange={this.lowerCaseToggleHandler} />
+                    checked={withLower}
+                    onChange={this.toggleLowerCaseHandler} />
                 <br/>
                 <br/>
-
                 <button type="button" onClick={this.generate}>Generate</button>
             </div>
         )
