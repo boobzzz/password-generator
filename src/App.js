@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import nanoid from 'nanoid/generate';
 
 import Checkbox from './components/Checkbox/Checkbox';
@@ -7,8 +7,7 @@ const numbers = '0123456789';
 const symbols = '!@#$%&*-_';
 const abc = 'abcdefghijklmnopqrstuvwxyz';
 
-export default class Passgen extends React.Component {
-
+export default class Passgen extends Component {
     state = {
         password: '',
         length: 10,
@@ -18,7 +17,7 @@ export default class Passgen extends React.Component {
     }
 
     generate = () => {
-        let {length, withSymbols, withUpper, withLower} = this.state;
+        let { length, withSymbols, withUpper, withLower } = this.state;
         let password = numbers +
             (withSymbols ? symbols : '') +
             (withUpper ? abc.toUpperCase() : '') +
@@ -54,17 +53,14 @@ export default class Passgen extends React.Component {
     }
 
     render() {
-        let {password, length, withSymbols, withUpper, withLower} = this.state;
+        let { password, length, withSymbols, withUpper, withLower } = this.state;
 
         return (
             <div>
                 <label>
                     Password:
                     {' '}
-                    <input
-                        type="text"
-                        value={password}
-                        readOnly />
+                    <input type="text" value={password} readOnly />
                 </label>
                 <br/>
                 <br/>
