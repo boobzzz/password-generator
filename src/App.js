@@ -16,57 +16,35 @@ export default class Passgen extends Component {
         withLower: false,
     }
 
-    // generate = () => {
-    //     let { length, withSymbols, withUpper, withLower } = this.state;
-    //     let password = numbers +
-    //         (withSymbols ? symbols : '') +
-    //         (withUpper ? abc.toUpperCase() : '') +
-    //         (withLower ? abc.toLowerCase() : '');
-    //
-    //     this.setState({
-    //         password: nanoid(password, length)
-    //     })
-    // }
+    toggleOptionsChecked = (event) => {
+        let name = event.target.name;
+        let checked = event.target.checked;
 
-    generate = (event) => {
-        // let name = event.target.name;
-        let checked = event.target.checked
-        let { length } = this.state;
-
-        // this.setState({
-        //     [name]: !this.state.name
-        // })
-
-        let options = numbers +
-            (checked ? symbols : '') +
-            (checked ? abc.toUpperCase() : '') +
-            (checked ? abc.toLowerCase() : '')
-
-
-        console.log(password);
+        this.setState({
+            [name]: checked
+        })
     }
-    // nanoid(password, length)
 
-    // toggleUpperCaseHandler = () => {
-    //     this.setState({
-    //         withUpper: !this.state.withUpper
-    //     })
-    // }
-    //
-    // toggleLowerCaseHandler = () => {
-    //     this.setState({
-    //         withLower: !this.state.withLower
-    //     })
-    // }
+    generate = () => {
+        let { length, withSymbols, withUpper, withLower } = this.state;
+        let password = numbers +
+            (withSymbols ? symbols : '') +
+            (withUpper ? abc.toUpperCase() : '') +
+            (withLower ? abc.toLowerCase() : '');
 
-    changeRangeHandler = (event) => {
+        this.setState({
+            password: nanoid(password, length)
+        })
+    }
+
+    changeLengthHandler = (event) => {
         this.setState({
             length: event.target.value
         })
     }
 
     render() {
-        let { password, length, withSymbols, withUpper, withLower } = this.state;
+        let { password, length } = this.state;
 
         return (
             <div>
@@ -84,7 +62,7 @@ export default class Passgen extends Component {
                         type="range"
                         min="6" max="14"
                         value={length}
-                        onChange={this.changeRangeHandler}
+                        onChange={this.changeLengthHandler}
                         readOnly />
                     {' '}
                     <span>{length}</span>
@@ -92,34 +70,24 @@ export default class Passgen extends Component {
                 <br/>
                 <br/>
                 <Checkbox
-                    id="1-1"
                     title="Numbers"
                     checked={true}
                     readOnly />
                 <br/>
                 <Checkbox
-                    id="1-2"
                     name="withSymbols"
                     title="Symbols"
-                    // checked={withSymbols}
-                    // onChange={this.toggleOptions}
-                />
+                    onChange={this.toggleOptionsChecked}/>
                 <br/>
                 <Checkbox
-                    id="1-3"
                     name="withUpper"
                     title="To Uppercase"
-                    // checked={withUpper}
-                    // onChange={this.toggleOptions}
-                />
+                    onChange={this.toggleOptionsChecked}/>
                 <br/>
                 <Checkbox
-                    id="1-4"
                     name="withLower"
                     title="To Lowercase"
-                    // checked={withLower}
-                    // onChange={this.toggleOptions}
-                />
+                    onChange={this.toggleOptionsChecked}/>
                 <br/>
                 <br/>
                 <button type="button" onClick={this.generate}>Generate</button>
