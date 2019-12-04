@@ -1,43 +1,51 @@
-import React, { Component } from 'react';
-import nanoid from 'nanoid/generate';
+import React, { Component } from "react";
+import nanoid from "nanoid/generate";
 
-import Checkbox from './components/Checkbox/Checkbox';
+import Checkbox from "./components/Checkbox/Checkbox";
+import Input from "./components/Input/Input";
+import Range from "./components/Range/Range";
+import Button from "./components/Button/Button";
 
-const numbers = '0123456789';
-const symbols = '!@#$%&*-_';
-const abc = 'abcdefghijklmnopqrstuvwxyz';
+const numbers = "0123456789";
+const symbols = "!@#$%&*-_";
+const abc = "abcdefghijklmnopqrstuvwxyz";
+
+function str(s, uc, lc) {
+    return (
+        numbers +
+        (s ? symbols : "") +
+        (uc ? abc.toUpperCase() : "") +
+        (lc ? abc.toLowerCase() : "")
+    )
+}
 
 export default class Passgen extends Component {
     state = {
-        password: '',
-        length: 10,
-        withSymbols: false,
-        withUpper: false,
-        withLower: false,
+      password: "",
+      length: 10,
+      withSymbols: false,
+      withUpper: false,
+      withLower: false
     }
 
-    toggleOptionsChecked = (event) => {
-        let name = event.target.name;
-        let checked = event.target.checked;
+    toggleOptionsChecked = event => {
+        let { name, checked } = event.target;
 
         this.setState({
-            [name]: checked
+          [name]: checked
         })
     }
 
     generate = () => {
         let { length, withSymbols, withUpper, withLower } = this.state;
-        let password = numbers +
-            (withSymbols ? symbols : '') +
-            (withUpper ? abc.toUpperCase() : '') +
-            (withLower ? abc.toLowerCase() : '');
+        let string = str(withSymbols, withUpper, withLower);
 
         this.setState({
-            password: nanoid(password, length)
+            password: nanoid(string, length)
         })
-    }
+    };
 
-    changeLengthHandler = (event) => {
+    changeLengthHandler = event => {
         this.setState({
             length: event.target.value
         })
@@ -48,49 +56,31 @@ export default class Passgen extends Component {
 
         return (
             <div>
-                <label>
-                    Password:
-                    {' '}
-                    <input type="text" value={password} readOnly />
-                </label>
-                <br/>
-                <br/>
-                <label>
-                    Length:
-                    {' '}
-                    <input
-                        type="range"
-                        min="6" max="14"
-                        value={length}
-                        onChange={this.changeLengthHandler}
-                        readOnly />
-                    {' '}
-                    <span>{length}</span>
-                </label>
-                <br/>
-                <br/>
-                <Checkbox
-                    title="Numbers"
-                    checked={true}
-                    readOnly />
-                <br/>
+                <Input content={password} />
+                <br />
+                <br />
+                <Range length={length} changed={this.changeLengthHandler} />
+                <br />
+                <br />
+                <Checkbox title="Numbers" checked={true} readOnly />
+                <br />
                 <Checkbox
                     name="withSymbols"
                     title="Symbols"
-                    onChange={this.toggleOptionsChecked}/>
-                <br/>
+                    onChange={this.toggleOptionsChecked} />
+                <br />
                 <Checkbox
                     name="withUpper"
                     title="To Uppercase"
-                    onChange={this.toggleOptionsChecked}/>
-                <br/>
+                    onChange={this.toggleOptionsChecked} />
+                <br />
                 <Checkbox
                     name="withLower"
                     title="To Lowercase"
-                    onChange={this.toggleOptionsChecked}/>
-                <br/>
-                <br/>
-                <button type="button" onClick={this.generate}>Generate</button>
+                    onChange={this.toggleOptionsChecked} />
+                <br />
+                <br />
+                <Button clicked={this.generate} />
             </div>
         )
     }
